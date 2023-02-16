@@ -1,13 +1,17 @@
-import requests
+import sqlite3
 
-url = "http://example.com/user_info.php?id=1"
+# Assume the 'name' variable is received from user input
+name = "John"
 
-payload = "1' OR '1'='1' -- "
-new_url = url + payload
+conn = sqlite3.connect('example.db')
+cursor = conn.cursor()
 
-response = requests.get(new_url)
+# This query is vulnerable to SQL injection attacks
+cursor.execute("SELECT * FROM users WHERE name = '" + name + "'")
 
-if "error in your SQL syntax" in response.text:
-    print("Vulnerable to SQL injection")
-else:
-    print("Not vulnerable to SQL injection")
+rows = cursor.fetchall()
+
+for row in rows:
+    print(row)
+
+conn.close()
