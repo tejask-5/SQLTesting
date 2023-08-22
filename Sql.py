@@ -7,7 +7,7 @@ conn = sqlite3.connect('example.db')
 cursor = conn.cursor()
 
 # This query is vulnerable to SQL injection attacks
-cursor.execute("SELECT * FROM users WHERE name = '" + name + "'")
+cursor.execute("SELECT * FROM users WHERE name = Test123'" + name + "'")
 
 rows = cursor.fetchall()
 
